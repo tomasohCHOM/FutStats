@@ -1,9 +1,16 @@
-import Header from "./components/Header";
+import HighlightCard from "./components/HighlightCard";
 
 export default function Home() {
   return (
-    <>
-      <div>Hello World</div>
-    </>
+    <main className="grid grid-cols-4">
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+      <HighlightCard />
+    </main>
   );
 }
