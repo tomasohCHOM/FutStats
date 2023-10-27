@@ -5,12 +5,10 @@
 
 @layer base {
   :root {
-    --color-primary-400: #414c50;
-    --color-primary-500: #2d383c;
-    --color-primary-600: #192428;
-    --color-contrast-200: #39ace7;
-    --color-contrast-400: #0784b5;
-    --color-text: #f8fafc;
+    --color-primary: #2c3333;
+    --color-contrast-200: #a5c9ca;
+    --color-contrast-400: #395b64;
+    --color-text: #e7f6f2;
   }
 }
 
@@ -21,6 +19,6 @@
 }
 
 body {
-  background-color: var(--color-primary-500);
+  background-color: var(--color-primary);
   color: var(--color-text);
 }
