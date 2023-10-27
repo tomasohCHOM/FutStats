@@ -1,7 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+@layer base {
+  :root {
+    --color-primary-400: #414c50;
+    --color-primary-500: #2d383c;
+    --color-primary-600: #192428;
+    --color-contrast-200: #39ace7;
+    --color-contrast-400: #0784b5;
+    --color-text: #f8fafc;
+  }
+}
 
 *,
 *::before,
@@ -10,6 +21,6 @@
 }
 
 body {
-  color: rgb(52, 50, 58);
-  background: rgb(248, 250, 252);
+  background-color: var(--color-primary-500);
+  color: var(--color-text);
 }
