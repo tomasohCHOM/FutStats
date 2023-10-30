@@ -10,7 +10,7 @@ export default function Home() {
         {
           mode: "no-cors",
           headers: {
-            "X-Auth-Token": "84a721b3da6a410298a1fb584f79a8d6",
+            "X-Auth-Token": process.env.NEXT_PUBLIC_API_TOKEN ?? "",
           },
         }
       );
