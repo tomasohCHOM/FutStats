@@ -4,18 +4,15 @@ import Highlights from "./components/Highlights";
 
 const callAPI = async () => {
   try {
-    const res = await fetch(
-      "https://api.football-data.org/v4/teams/86/matches?status=SCHEDULED",
-      {
-        mode: "no-cors",
-        headers: {
-          // "Access-Control-Allow-Origin": "*",
-          // "Access-Control-Allow-Credentials": true,
-          "Content-Type": "applications/json",
-          "X-Auth-Token": "84a721b3da6a410298a1fb584f79a8d6",
-        },
-      }
-    );
+    const res = await fetch("https://api.football-data.org/v4/areas/2077", {
+      // mode: "no-cors",
+      headers: {
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Credentials": true,
+        // "Content-Type": "applications/json",
+        "X-Auth-Token": process.env.NEXT_PUBLIC_API_TOKEN || "",
+      },
+    });
     console.log(res);
     const data = await res.json();
     console.log(data);
