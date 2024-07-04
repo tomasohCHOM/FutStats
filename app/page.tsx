@@ -1,4 +1,3 @@
-import Highlights from "./components/Highlights";
 import { getFootballData } from "./utils/fetch";
 
 interface Season {
@@ -21,10 +20,9 @@ export default async function Home() {
   return (
     <main className="grid grid-cols-4">
       {data.seasons.map((season) => {
-        if (!season.winner) return <div>Season not played yet</div>;
+        if (!season.winner) return;
         return <div>{season.winner.name}</div>;
       })}
-      {/* <Highlights></Highlights> */}
     </main>
   );
 }
