@@ -3,15 +3,15 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <header className="flex items-center justify-between px-6 py-3 shadow-md">
+    <header className="flex items-center justify-between px-6 py-3 border-b-2 border-contrast-400">
       <section>
         <Link href="/">
-          <h1 className="font-poppins text-3xl font-bold text-gray-10 cursor-pointer">
+          <h1 className="font-poppins text-lg font-bold text-gray-10 cursor-pointer">
             FutStats
           </h1>
         </Link>
       </section>
-      <section className="font-poppins font-normal text-xl flex items-center justify-between gap-4 [&>span]:cursor-pointer">
+      <section className="font-poppins font-normal flex items-center justify-between gap-4 [&>span]:cursor-pointer">
         <Link href="/highlights">
           <span className="hover:text-contrast-200 transition-all">
             Highlights

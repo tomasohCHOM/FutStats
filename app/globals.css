@@ -1,14 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --color-primary: #2c3333;
-    --color-contrast-200: #a5c9ca;
-    --color-contrast-400: #395b64;
+    --color-primary: #19252d;
+    --color-contrast-200: #395b64;
+    --color-contrast-400: #a5c9ca;
     --color-text: #e7f6f2;
+    --font-family: "Noto Sans", sans-serif;
   }
 }
 

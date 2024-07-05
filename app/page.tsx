@@ -19,9 +19,9 @@ export default async function Home() {
   const data: Season = await getFootballData("competitions/PL");
   return (
     <main className="grid grid-cols-4">
-      {data.seasons.map((season) => {
+      {data.seasons.map((season, i) => {
         if (!season.winner) return;
-        return <div>{season.winner.name}</div>;
+        return <div key={season.id + "-" + i}>{season.winner.name}</div>;
       })}
     </main>
   );
