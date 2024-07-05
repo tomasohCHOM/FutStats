@@ -1,19 +1,18 @@
 import React from "react";
 import { getFootballData } from "../utils/fetch";
-import Image from "next/image";
 
 export default async function Standings() {
   const premierLeagueStandings = await getFootballData(
-    "competitions/PL/standings"
+    "competitions/PL/standings/?season=2023"
   );
   const primeraDivisionStandings = await getFootballData(
-    "competitions/PD/standings"
+    "competitions/PD/standings/?season=2023"
   );
 
   return (
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>
-      <div className="flex gap-4">
+      <div className="flex gap-4 mt-4">
         <div className="flex flex-col">
           <h2 className="text-xl font-medium">Premier League (England)</h2>
           <div className="grid">
