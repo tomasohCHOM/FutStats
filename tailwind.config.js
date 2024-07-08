@@ -7,11 +7,11 @@ module.exports = {
   ],
   theme: {
     colors: {
-      "primary-400": "var(--color-primary-400)",
-      "primary-500": "var(--color-primary-500)",
-      "primary-600": "var(--color-primary-600)",
-      "contrast-200": "var(--color-contrast-200)",
-      "contrast-400": "var(--color-contrast-400)",
+      "background-200": "var(--color-background-200)",
+      "background-300": "var(--color-background-300)",
+      "background-400": "var(--color-background-400)",
+      "contrast-200": "var(--color-foreground-200)",
+      "contrast-400": "var(--color-foreground-400)",
       text: "var(--color-text)",
     },
     extend: {

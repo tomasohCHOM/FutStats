@@ -3,34 +3,28 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <header className="flex items-center justify-between px-6 py-3 border-b-2 border-contrast-400">
+    <nav className="flex items-center justify-between bg-background-300 px-6 py-3">
       <section>
         <Link href="/">
-          <h1 className="font-poppins text-lg font-bold text-gray-10 cursor-pointer">
+          <h1 className="text-gray-10 cursor-pointer font-poppins text-lg font-bold">
             FutStats
           </h1>
         </Link>
       </section>
-      <section className="font-poppins font-normal flex items-center justify-between gap-4 [&>span]:cursor-pointer">
+      <section className="flex items-center justify-between gap-4 font-poppins font-normal">
         <Link href="/highlights">
-          <span className="hover:text-contrast-200 transition-all">
-            Highlights
-          </span>
+          <span>Highlights</span>
         </Link>
         <Link href="/upcoming">
-          <span className="hover:text-contrast-200 transition-all">
-            Upcoming
-          </span>
+          <span>Upcoming</span>
         </Link>
         <Link href="/standings">
-          <span className="hover:text-contrast-200 transition-all">
-            Standings
-          </span>
+          <span>Standings</span>
         </Link>
         <Link href="/news">
-          <span className="hover:text-contrast-200 transition-all">News</span>
+          <span>News</span>
         </Link>
       </section>
-    </header>
+    </nav>
   );
 }

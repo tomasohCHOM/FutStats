@@ -1,5 +1,3 @@
-import { getFootballData } from "./utils/fetch";
-
 interface Season {
   seasons: {
     id: number;
@@ -16,13 +14,5 @@ interface Season {
 }
 
 export default async function Home() {
-  const data: Season = await getFootballData("competitions/PL");
-  return (
-    <main className="grid grid-cols-4">
-      {data.seasons.map((season, i) => {
-        if (!season.winner) return;
-        return <div key={season.id + "-" + i}>{season.winner.name}</div>;
-      })}
-    </main>
-  );
+  return <section></section>;
 }

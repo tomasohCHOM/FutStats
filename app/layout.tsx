@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <Navbar />
-        <main className="p-4 md:p-8 max-w-screen-2xl">{children}</main>
+        <main className="max-w-screen-2xl p-4 md:p-8">{children}</main>
       </body>
     </html>
   );

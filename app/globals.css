@@ -4,11 +4,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn-regular {
+    @apply rounded-lg bg-background-300 transition hover:bg-background-400;
+  }
+}
+
 @layer base {
   :root {
-    --color-primary: #19252d;
-    --color-contrast-200: #395b64;
-    --color-contrast-400: #a5c9ca;
+    --color-background-200: #19252d;
+    --color-background-300: #1a2a35;
+    --color-background-400: #1d303c;
+
+    --color-foreground-200: #3d7887;
+    --color-foreground-400: #a5c9ca;
+
     --color-text: #e7f6f2;
     --font-family: "Noto Sans", sans-serif;
   }
@@ -21,6 +31,6 @@
 }
 
 body {
-  background-color: var(--color-primary);
+  background-color: var(--color-background-200);
   color: var(--color-text);
 }
