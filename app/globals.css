@@ -6,7 +6,10 @@
 
 @layer components {
   .btn-regular {
-    @apply rounded-lg bg-background-300 transition hover:bg-background-400;
+    @apply rounded-lg bg-background-300 px-6 py-3 font-semibold transition hover:bg-background-400;
+  }
+  .btn-contrast {
+    @apply bg-foreground-400 rounded-lg px-6 py-3 font-semibold text-background-200 transition hover:brightness-110;
   }
 }
 

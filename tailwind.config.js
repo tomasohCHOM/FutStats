@@ -10,8 +10,8 @@ module.exports = {
       "background-200": "var(--color-background-200)",
       "background-300": "var(--color-background-300)",
       "background-400": "var(--color-background-400)",
-      "contrast-200": "var(--color-foreground-200)",
-      "contrast-400": "var(--color-foreground-400)",
+      "foreground-200": "var(--color-foreground-200)",
+      "foreground-400": "var(--color-foreground-400)",
       text: "var(--color-text)",
     },
     extend: {
