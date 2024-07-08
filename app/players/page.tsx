@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Highlights() {
-  return <div>Highlights</div>;
+  return <div>Players</div>;
 }
