@@ -1,6 +1,21 @@
 import React from "react";
 import { getFootballData } from "../utils/fetch";
 
+interface Season {
+  seasons: {
+    id: number;
+    startDate: string;
+    endDate: string;
+    currentMatchDay: string;
+    winner: {
+      id: number;
+      name: string;
+      crest: string;
+      website: string;
+    };
+  }[];
+}
+
 export default async function Standings() {
   const premierLeagueStandings = await getFootballData(
     "competitions/PL/standings/?season=2023",
@@ -19,7 +34,7 @@ export default async function Standings() {
             {premierLeagueStandings.standings[0].table.map(
               (positionEntry: any, i: number) => {
                 return (
-                  <span key={"entry" + i}>
+                  <span key={"Premier League Standings " + i}>
                     {positionEntry.position} - {positionEntry.team.name}{" "}
                     <img
                       src={positionEntry.team.crest}
@@ -40,7 +55,7 @@ export default async function Standings() {
             {primeraDivisionStandings.standings[0].table.map(
               (positionEntry: any, i: number) => {
                 return (
-                  <span key={"entry" + i}>
+                  <span key={"Primera Division Standings " + i}>
                     {positionEntry.position} - {positionEntry.team.name}{" "}
                     <img
                       src={positionEntry.team.crest}
