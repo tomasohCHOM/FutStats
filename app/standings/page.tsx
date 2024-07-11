@@ -1,5 +1,6 @@
 import React from "react";
 import { getFootballData } from "../utils/fetch";
+import { nationalLeagues } from "../utils/mappings";
 
 interface Season {
   seasons: {
@@ -16,60 +17,52 @@ interface Season {
   }[];
 }
 
+async function getStandings(nationalLeagues: [string, string][]) {
+  const standings = [];
+  for (const league of nationalLeagues) {
+    const standing = await getFootballData(
+      `competitions/${league[1]}/standings/?season=2023`,
+    );
+    standings.push({ ...standing, leagueName: league[0] });
+  }
+  return standings;
+}
+
 export default async function Standings() {
-  const premierLeagueStandings = await getFootballData(
-    "competitions/PL/standings/?season=2023",
-  );
-  const primeraDivisionStandings = await getFootballData(
-    "competitions/PD/standings/?season=2023",
-  );
+  const standings = await getStandings(Object.entries(nationalLeagues));
 
   return (
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>
-      <div className="mt-4 flex gap-4">
-        <div className="flex flex-col">
-          <h2 className="text-xl font-medium">Premier League (England)</h2>
-          <div className="grid">
-            {premierLeagueStandings.standings[0].table.map(
-              (positionEntry: any, i: number) => {
-                return (
-                  <span key={"Premier League Standings " + i}>
-                    {positionEntry.position} - {positionEntry.team.name}{" "}
-                    <img
-                      src={positionEntry.team.crest}
-                      alt={positionEntry.team.name + " crest"}
-                      width={100}
-                      height={100}
-                      className="inline w-4"
-                    />
-                  </span>
-                );
-              },
-            )}
-          </div>
-        </div>
-        <div className="flex flex-col">
-          <h2 className="text-xl font-medium">Primera Division (Spain)</h2>
-          <div className="grid">
-            {primeraDivisionStandings.standings[0].table.map(
-              (positionEntry: any, i: number) => {
-                return (
-                  <span key={"Primera Division Standings " + i}>
-                    {positionEntry.position} - {positionEntry.team.name}{" "}
-                    <img
-                      src={positionEntry.team.crest}
-                      alt={positionEntry.team.name + " crest"}
-                      width={100}
-                      height={100}
-                      className="inline w-4"
-                    />
-                  </span>
-                );
-              },
-            )}
-          </div>
-        </div>
+      <div className="mt-4 grid grid-cols-2 gap-4">
+        {standings.map((standing: any) => {
+          return (
+            <div
+              className="flex flex-col rounded-lg bg-background-300 p-4"
+              key={"Standing data for: " + standing.leagueName}
+            >
+              <h2 className="text-xl font-medium">{standing.leagueName}</h2>
+              <div className="grid">
+                {standing.standings[0].table.map(
+                  (positionEntry: any, i: number) => {
+                    return (
+                      <span key={"Premier League Standings " + i}>
+                        {positionEntry.position} - {positionEntry.team.name}{" "}
+                        <img
+                          src={positionEntry.team.crest}
+                          alt={positionEntry.team.name + " crest"}
+                          width={100}
+                          height={100}
+                          className="inline w-4"
+                        />
+                      </span>
+                    );
+                  },
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
