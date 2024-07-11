@@ -1,6 +1,7 @@
 import React from "react";
-import { getFootballData } from "../utils/fetch";
-import { nationalLeagues } from "../utils/mappings";
+import { getFootballData } from "@/lib/fetch";
+import { nationalLeagues } from "@/lib/mappings";
+import { ScrollArea } from "@/components/scroll-area";
 
 interface Season {
   seasons: {
@@ -37,8 +38,8 @@ export default async function Standings() {
       <div className="mt-4 grid grid-cols-2 gap-4">
         {standings.map((standing: any) => {
           return (
-            <div
-              className="flex flex-col rounded-lg bg-background-300 p-4"
+            <ScrollArea
+              className="flex h-[400px] flex-col rounded-lg bg-background-300 p-4"
               key={"Standing data for: " + standing.leagueName}
             >
               <h2 className="text-xl font-medium">{standing.leagueName}</h2>
@@ -60,7 +61,7 @@ export default async function Standings() {
                   },
                 )}
               </div>
-            </div>
+            </ScrollArea>
           );
         })}
       </div>

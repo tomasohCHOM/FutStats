@@ -1,5 +1,5 @@
 import React from "react";
-import { getFootballData } from "../utils/fetch";
+import { getFootballData } from "@/lib/fetch";
 
 export default async function Players() {
   const scorers = await getFootballData("competitions/SA/scorers?season=2023");
