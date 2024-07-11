@@ -3,23 +3,28 @@ import { getFootballData } from "@/lib/fetch";
 import { nationalLeagues } from "@/lib/mappings";
 import { ScrollArea } from "@/components/scroll-area";
 
-interface Season {
-  seasons: {
-    id: number;
-    startDate: string;
-    endDate: string;
-    currentMatchDay: string;
-    winner: {
-      id: number;
-      name: string;
-      crest: string;
-      website: string;
-    };
+interface TableEntry {
+  position: number;
+  playedGames: number;
+  points: number;
+  goalDifference: number;
+  team: {
+    crest: string;
+    name: string;
+    shortName: string;
+    tla: string;
+  };
+}
+
+interface Standing {
+  standings: {
+    table: TableEntry[];
   }[];
+  leagueName: string;
 }
 
 async function getStandings(nationalLeagues: [string, string][]) {
-  const standings = [];
+  const standings: Standing[] = [];
   for (const league of nationalLeagues) {
     const standing = await getFootballData(
       `competitions/${league[1]}/standings/?season=2023`,
@@ -36,7 +41,7 @@ export default async function Standings() {
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {standings.map((standing: any) => {
+        {standings.map((standing) => {
           return (
             <ScrollArea
               className="flex h-[400px] flex-col rounded-lg bg-background-300 p-6"
@@ -57,7 +62,7 @@ export default async function Standings() {
                 </thead>
                 <tbody>
                   {standing.standings[0].table.map(
-                    (positionEntry: any, i: number) => {
+                    (positionEntry, i: number) => {
                       return (
                         <tr key={standing.leagueName + " Standing #" + i}>
                           <td>{positionEntry.position}.</td>
