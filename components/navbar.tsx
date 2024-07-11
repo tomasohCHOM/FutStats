@@ -27,7 +27,7 @@ export default function Navbar() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 flex w-full items-center justify-between bg-background-300 px-6 py-3">
+    <nav className="fixed top-0 z-50 flex w-full items-center justify-between bg-background-400 px-6 py-3">
       <div>
         <Link href="/">
           <span className="text-gray-10 cursor-pointer text-lg font-bold">
