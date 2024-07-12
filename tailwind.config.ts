@@ -26,11 +26,6 @@ const config = {
         "foreground-400": "rgb(var(--foreground-400) / <alpha-value>)",
         text: "rgb(var(--text))",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
