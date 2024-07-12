@@ -17,6 +17,10 @@ interface Scorer {
     penalties: number;
   }[];
   leagueName: string;
+  competition: {
+    name: string;
+    emblem: string;
+  };
 }
 
 function getOverallTopScorers(scorers: Scorer[]) {
@@ -25,11 +29,14 @@ function getOverallTopScorers(scorers: Scorer[]) {
   return allScorers.slice(0, 30);
 }
 
-async function getTopScorersFromLeagues(nationalLeagues: [string, string][]) {
+async function getTopScorersFromLeagues(
+  nationalLeagues: [string, string][],
+  year: number,
+) {
   const scorers: Scorer[] = [];
   for (const league of nationalLeagues) {
     const scorer = await getFootballData(
-      `competitions/${league[1]}/scorers/?season=2022`,
+      `competitions/${league[1]}/scorers/?season=${year}`,
     );
     scorers.push({ ...scorer, leagueName: league[0] });
   }
@@ -39,6 +46,7 @@ async function getTopScorersFromLeagues(nationalLeagues: [string, string][]) {
 export default async function Players() {
   const leagueScorers = await getTopScorersFromLeagues(
     Object.entries(nationalLeagues),
+    2022,
   );
   const overallTopScorers = getOverallTopScorers(leagueScorers);
 
@@ -102,7 +110,12 @@ export default async function Players() {
               key={"Top Scorers data for: " + league.leagueName}
             >
               <h2 className="text-lg font-medium sm:text-xl">
-                {league.leagueName}
+                <span>{league.leagueName}</span>
+                <img
+                  src={league.competition.emblem}
+                  alt={league.competition.name + " Emblem"}
+                  className="ml-2 inline w-8 bg-white p-1"
+                />
               </h2>
               <table className="mt-2 w-full text-left">
                 <thead>

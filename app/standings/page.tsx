@@ -21,13 +21,17 @@ interface Standing {
     table: TableEntry[];
   }[];
   leagueName: string;
+  area: {
+    name: string;
+    flag: string;
+  };
 }
 
-async function getStandings(nationalLeagues: [string, string][]) {
+async function getStandings(nationalLeagues: [string, string][], year: number) {
   const standings: Standing[] = [];
   for (const league of nationalLeagues) {
     const standing = await getFootballData(
-      `competitions/${league[1]}/standings/?season=2023`,
+      `competitions/${league[1]}/standings/?season=${year}`,
     );
     standings.push({ ...standing, leagueName: league[0] });
   }
@@ -35,20 +39,28 @@ async function getStandings(nationalLeagues: [string, string][]) {
 }
 
 export default async function Standings() {
-  const standings = await getStandings(Object.entries(nationalLeagues));
+  const leagueStandings = await getStandings(
+    Object.entries(nationalLeagues),
+    2022,
+  );
 
   return (
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {standings.map((standing) => {
+        {leagueStandings.map((league) => {
           return (
             <ScrollArea
               className="flex h-[400px] flex-col rounded-lg bg-background-300 p-6"
-              key={"Standing data for: " + standing.leagueName}
+              key={"Standing data for: " + league.leagueName}
             >
-              <h2 className="text-lg font-medium sm:text-xl">
-                {standing.leagueName}
+              <h2 className="items-center text-lg font-medium sm:text-xl">
+                <span>{league.leagueName}</span>
+                <img
+                  src={league.area.flag}
+                  alt={league.area.name + " Flag"}
+                  className="ml-2 inline w-8 pb-1"
+                />
               </h2>
               <table className="mt-2 table w-full text-left text-sm sm:text-[0.9685rem]">
                 <thead>
@@ -61,38 +73,34 @@ export default async function Standings() {
                   </tr>
                 </thead>
                 <tbody>
-                  {standing.standings[0].table.map(
-                    (positionEntry, i: number) => {
-                      return (
-                        <tr key={standing.leagueName + " Standing #" + i}>
-                          <td>{positionEntry.position}.</td>
-                          <td>
-                            <img
-                              src={positionEntry.team.crest}
-                              alt={positionEntry.team.name + " crest"}
-                              width={100}
-                              height={100}
-                              className="mr-1 inline w-4"
-                            />
-                            <span className="sm:hidden">
-                              {positionEntry.team.tla}
-                            </span>
-                            <span className="hidden sm:inline md:hidden">
-                              {positionEntry.team.shortName}
-                            </span>
-                            <span className="hidden md:inline">
-                              {positionEntry.team.name}
-                            </span>
-                          </td>
-                          <td>{positionEntry.playedGames}</td>
-                          <td>{positionEntry.points}</td>
-                          <td className="hidden text-right sm:inline">
-                            {positionEntry.goalDifference}
-                          </td>
-                        </tr>
-                      );
-                    },
-                  )}
+                  {league.standings[0].table.map((standing, i: number) => {
+                    return (
+                      <tr key={league.leagueName + " Standing #" + i}>
+                        <td>{standing.position}.</td>
+                        <td>
+                          <img
+                            src={standing.team.crest}
+                            alt={standing.team.name + " crest"}
+                            width={100}
+                            height={100}
+                            className="mr-1 inline w-4"
+                          />
+                          <span className="sm:hidden">{standing.team.tla}</span>
+                          <span className="hidden sm:inline md:hidden">
+                            {standing.team.shortName}
+                          </span>
+                          <span className="hidden md:inline">
+                            {standing.team.name}
+                          </span>
+                        </td>
+                        <td>{standing.playedGames}</td>
+                        <td>{standing.points}</td>
+                        <td className="hidden text-right sm:inline">
+                          {standing.goalDifference}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </ScrollArea>
