@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollArea } from "@/components/scroll-area";
-import { years } from "@/lib/constants";
+import { nationalLeagues, years } from "@/lib/constants";
 import { getStandings } from "@/lib/fetch";
 import { Standing } from "@/lib/types";
 import React, { useEffect, useState } from "react";
