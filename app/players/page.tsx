@@ -1,27 +1,8 @@
 import React from "react";
 import { getFootballData } from "@/lib/fetch";
-import { nationalLeagues, years } from "@/lib/constants";
+import { nationalLeagues } from "@/lib/constants";
 import { ScrollArea } from "@/components/scroll-area";
-
-interface Scorer {
-  scorers: {
-    player: {
-      name: string;
-    };
-    team: {
-      name: string;
-      crest: string;
-    };
-    goals: number;
-    assists: number;
-    penalties: number;
-  }[];
-  leagueName: string;
-  competition: {
-    name: string;
-    emblem: string;
-  };
-}
+import { Scorer } from "@/lib/types";
 
 function getOverallTopScorers(scorers: Scorer[]) {
   const allScorers = scorers.flatMap((scorer) => scorer.scorers);
@@ -43,7 +24,7 @@ async function getTopScorersFromLeagues(
   return scorers;
 }
 
-export default async function Players() {
+export default async function PlayersPage() {
   const leagueScorers = await getTopScorersFromLeagues(
     Object.entries(nationalLeagues),
     2022,

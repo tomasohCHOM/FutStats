@@ -1,14 +1,28 @@
 import React from "react";
-import { getStandings } from "@/lib/fetch";
 import { nationalLeagues } from "@/lib/constants";
 import { ScrollArea } from "@/components/scroll-area";
+import { Standing } from "@/lib/types";
+import { getFootballData } from "@/lib/fetch";
+
+export async function getStandings(
+  nationalLeagues: [string, string][],
+  year: number,
+) {
+  const standings: Standing[] = [];
+  for (const league of nationalLeagues) {
+    const standing = await getFootballData(
+      `competitions/${league[1]}/standings/?season=${year}`,
+    );
+    standings.push({ ...standing, leagueName: league[0] });
+  }
+  return standings;
+}
 
 export default async function StandingsPage() {
   const leagueStandings = await getStandings(
     Object.entries(nationalLeagues),
     2022,
   );
-
   return (
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>

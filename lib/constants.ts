@@ -15,5 +15,3 @@ export const internationalCompetitions = {
   "European Championship": "EC",
   "Copa Liberatoders": "CLI",
 };
-
-export const years = [2022, 2021, 2020];

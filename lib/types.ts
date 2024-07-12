@@ -1,3 +1,23 @@
+export type Scorer = {
+  scorers: {
+    player: {
+      name: string;
+    };
+    team: {
+      name: string;
+      crest: string;
+    };
+    goals: number;
+    assists: number;
+    penalties: number;
+  }[];
+  leagueName: string;
+  competition: {
+    name: string;
+    emblem: string;
+  };
+};
+
 type TableEntry = {
   position: number;
   playedGames: number;
