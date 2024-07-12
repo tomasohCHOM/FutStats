@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "FutStats",
@@ -16,9 +17,12 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <Navbar />
-        <main className="mt-12 max-w-screen-2xl px-4 py-8 md:px-8">
-          {children}
-        </main>
+        <div className="flex h-screen flex-col">
+          <main className="mt-12 max-w-screen-2xl px-4 py-8 md:px-8">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

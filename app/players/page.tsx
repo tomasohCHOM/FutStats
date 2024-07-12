@@ -52,20 +52,11 @@ export default async function Players() {
 
   return (
     <section>
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Top Scorers</h1>
-        <form>
-          <select className="btn-regular p-2 outline-none">
-            {years.map((year) => {
-              return (
-                <option key={"Option for standings " + year} value={year}>
-                  {year}
-                </option>
-              );
-            })}
-          </select>
-        </form>
-      </div>
+      <h1 className="text-3xl font-semibold">Top Scorers</h1>
+      <p className="mt-2">
+        Includes data regarding the top scorers (from 2022) in the major
+        national football leagues
+      </p>
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <ScrollArea className="h-[380px] rounded-lg bg-background-300 p-6">
           <h2 className="text-lg font-medium sm:text-xl">
