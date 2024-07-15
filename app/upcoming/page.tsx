@@ -1,60 +1,22 @@
 import { getFootballData } from "@/lib/fetch";
-import { Match } from "@/lib/types";
+import { MatchResult } from "@/lib/types";
 import Link from "next/link";
 import React from "react";
 
 async function getUpcomingMatches() {
-  return await getFootballData("matches/?status=SCHEDULED");
+  const matches: MatchResult = await getFootballData(
+    "matches/?status=SCHEDULED",
+  );
+  return matches;
 }
 
 export default async function Upcoming() {
   const upcomingMatches = await getUpcomingMatches();
-  console.log(upcomingMatches);
 
-  const sampleMatches: Match[] = [
-    {
-      utcDate: "2022-02-27T16:05:00Z",
-      competition: {
-        name: "Ligue 1",
-        emblem: "https://crests.football-data.org/FL1.pn",
-      },
-      awayTeam: {
-        name: "Real Betis Balompié",
-        shortName: "Real Betis",
-        tla: "BET",
-        crest: "https://crests.football-data.org/90.png",
-      },
-      homeTeam: {
-        name: "ES Troyes AC",
-        shortName: "Troyes",
-        tla: "ETR",
-        crest: "https://crests.football-data.org/531.svg",
-      },
-    },
-    {
-      utcDate: "2022-02-27T16:05:00Z",
-      competition: {
-        name: "Ligue 1",
-        emblem: "https://crests.football-data.org/FL1.pn",
-      },
-      awayTeam: {
-        name: "Real Betis Balompié",
-        shortName: "Real Betis",
-        tla: "BET",
-        crest: "https://crests.football-data.org/90.png",
-      },
-      homeTeam: {
-        name: "ES Troyes AC",
-        shortName: "Troyes",
-        tla: "ETR",
-        crest: "https://crests.football-data.org/531.svg",
-      },
-    },
-  ];
   return (
     <section>
-      <h1 className="text-3xl font-semibold">Standings</h1>
-      {false ? (
+      <h1 className="text-3xl font-semibold">Upcoming Matches</h1>
+      {upcomingMatches.matches.length === 0 ? (
         <div className="mt-4 flex flex-col gap-2">
           <p>No upcoming matches at this current time :/</p>
           <Link href="/">
@@ -62,12 +24,12 @@ export default async function Upcoming() {
           </Link>
         </div>
       ) : (
-        <div className="mt-4 flex flex-col gap-6">
-          {sampleMatches.map((match, i) => {
+        <div className="mx-auto mt-4 flex max-w-screen-lg flex-col gap-6">
+          {upcomingMatches.matches.map((match, i) => {
             return (
               <div
                 key={"Match scheduled at " + match.utcDate + " #" + i}
-                className="flex max-w-screen-lg items-center justify-between gap-8 rounded-lg bg-background-300 p-2 px-4"
+                className="flex w-full flex-col items-center justify-between gap-2 rounded-lg bg-background-300 p-2 px-4 md:flex-row md:gap-8"
               >
                 <div>
                   <span className="mr-1">
@@ -78,7 +40,12 @@ export default async function Upcoming() {
                       height={100}
                       className="mr-1 inline w-4"
                     />
-                    {match.homeTeam.name}
+                    <span className="hidden sm:inline">
+                      {match.homeTeam.name}
+                    </span>
+                    <span className="inline sm:hidden">
+                      {match.homeTeam.shortName}
+                    </span>
                   </span>
                   vs.
                   <span className="ml-1">
@@ -89,15 +56,20 @@ export default async function Upcoming() {
                       height={100}
                       className="mr-1 inline w-4"
                     />
-                    {match.awayTeam.name}
+                    <span className="hidden sm:inline">
+                      {match.awayTeam.name}
+                    </span>
+                    <span className="inline sm:hidden">
+                      {match.awayTeam.shortName}
+                    </span>
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="btn-contrast rounded-full p-1 text-sm">
+                  <span className="rounded-full bg-foreground-400 p-1 text-sm font-semibold text-background-200">
                     SCHEDULED
                   </span>
-                  <div className="rounded-md border border-foreground-400 p-1">
-                    {new Date(match.utcDate).toLocaleDateString()}
+                  <div className="rounded-md border border-foreground-400 p-1 text-sm">
+                    {new Date(match.utcDate).toLocaleString()}
                   </div>
                 </div>
               </div>

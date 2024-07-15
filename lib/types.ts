@@ -41,12 +41,29 @@ export type Standing = {
   };
 };
 
-export type Match = {
+export enum MatchStatus {
+  SCHEDULED,
+  TIMED,
+  IN_PLAY,
+  PAUSED,
+  FINISHED,
+  SUSPENDED,
+  POSTPONED,
+  CANCELLED,
+  AWARDED,
+}
+
+type Match = {
   utcDate: string;
+  status: MatchStatus;
   competition: {
     name: string;
     emblem: string;
   };
   homeTeam: Team;
   awayTeam: Team;
+};
+
+export type MatchResult = {
+  matches: Match[];
 };
