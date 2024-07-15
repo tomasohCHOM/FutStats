@@ -10,10 +10,6 @@ const navbarItems = [
     href: "/players",
   },
   {
-    name: "Teams",
-    href: "/teams",
-  },
-  {
     name: "Standings",
     href: "/standings",
   },

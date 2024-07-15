@@ -6,6 +6,9 @@ import Footer from "@/components/footer";
 export const metadata: Metadata = {
   title: "FutStats",
   description: "Display soccer data across multiple leagues",
+  icons: {
+    shortcut: "./favicon.ico",
+  },
 };
 
 export default function RootLayout({
