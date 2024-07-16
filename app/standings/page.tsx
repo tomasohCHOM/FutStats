@@ -2,10 +2,7 @@ import React from "react";
 import { nationalLeagues } from "@/lib/constants";
 import { getStandings } from "@/lib/fetch";
 import StandingCard from "@/components/standing-card";
-
-function isError(standing: any): standing is Error {
-  return standing instanceof Error;
-}
+import Pending from "@/components/pending";
 
 export default async function StandingsPage() {
   const leagueStandings = await getStandings(
@@ -13,13 +10,8 @@ export default async function StandingsPage() {
     2022,
   );
 
-  if (leagueStandings.errorCode === 429) {
-    return (
-      <div>
-        Processing... please wait {leagueStandings.waitTime} seconds, then
-        refresh the page.
-      </div>
-    );
+  if (leagueStandings.errorCode === 429 && leagueStandings.waitTime) {
+    return <Pending waitTime={leagueStandings.waitTime} />;
   }
 
   return (

@@ -4,6 +4,7 @@ import { nationalLeagues } from "@/lib/constants";
 import { ScrollArea } from "@/components/scroll-area";
 import { Scorer } from "@/lib/types";
 import ScorerCard from "@/components/scorer-card";
+import Pending from "@/components/pending";
 
 function getOverallTopScorers(scorers: Scorer[]) {
   const allScorers = scorers.flatMap((scorer) => scorer.scorers);
@@ -16,6 +17,11 @@ export default async function PlayersPage() {
     Object.entries(nationalLeagues),
     2022,
   );
+
+  if (leagueScorers.errorCode === 429 && leagueScorers.waitTime) {
+    return <Pending waitTime={leagueScorers.waitTime} />;
+  }
+
   const overallTopScorers = getOverallTopScorers(leagueScorers);
 
   return (

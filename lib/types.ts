@@ -1,7 +1,7 @@
 export type Error = {
   errorCode?: number;
   message?: string;
-  waitTime?: string;
+  waitTime?: number;
 };
 
 type Team = {

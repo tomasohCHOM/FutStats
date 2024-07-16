@@ -1,4 +1,4 @@
-import { Error, Scorer, Standing } from "./types";
+import { Error, MatchResult, Scorer, Standing } from "./types";
 
 /**
  * Function to get football data from a specific endpoint
@@ -10,20 +10,26 @@ export async function getFootballData(endpoint: string) {
     headers: {
       "X-Auth-Token": process.env.NEXT_PUBLIC_API_TOKEN || "",
     },
-    cache: "no-store",
+    cache: "no-cache",
   });
   return res.json();
 }
 
+type ScorersReturnType = Scorer[] & Error;
+
 export async function getTopScorersFromLeagues(
   nationalLeagues: [string, string][],
   year: number,
-) {
+): Promise<ScorersReturnType> {
   const scorers: Scorer[] = [];
   for (const league of nationalLeagues) {
     const scorer = await getFootballData(
       `competitions/${league[1]}/scorers/?season=${year}`,
     );
+    if (scorer.errorCode === 429) {
+      const waitTime = scorer.message.match(/(\d+)/)[0];
+      return { ...scorer, waitTime: waitTime };
+    }
     scorers.push({ ...scorer, leagueName: league[0] });
   }
   return scorers;
@@ -47,4 +53,15 @@ export async function getStandings(
     standings.push({ ...standing, leagueName: league[0] });
   }
   return standings;
+}
+
+type MatchReturnType = MatchResult & Error;
+
+export async function getUpcomingMatches(): Promise<MatchReturnType> {
+  const matches = await getFootballData("matches/?status=SCHEDULED");
+  if (matches.errorCode === 429) {
+    const waitTime = matches.message.match(/(\d+)/)[0];
+    return { ...matches, waitTime: waitTime };
+  }
+  return matches;
 }

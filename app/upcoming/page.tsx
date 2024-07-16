@@ -1,17 +1,14 @@
-import { getFootballData } from "@/lib/fetch";
-import { MatchResult } from "@/lib/types";
+import Pending from "@/components/pending";
+import { getUpcomingMatches } from "@/lib/fetch";
 import Link from "next/link";
 import React from "react";
 
-async function getUpcomingMatches() {
-  const matches: MatchResult = await getFootballData(
-    "matches/?status=SCHEDULED",
-  );
-  return matches;
-}
-
 export default async function Upcoming() {
   const upcomingMatches = await getUpcomingMatches();
+
+  if (upcomingMatches.errorCode === 429 && upcomingMatches.waitTime) {
+    return <Pending waitTime={upcomingMatches.waitTime} />;
+  }
 
   return (
     <section>

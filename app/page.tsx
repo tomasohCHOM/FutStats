@@ -1,3 +1,4 @@
+import Pending from "@/components/pending";
 import ScorerCard from "@/components/scorer-card";
 import StandingCard from "@/components/standing-card";
 import { getStandings, getTopScorersFromLeagues } from "@/lib/fetch";
@@ -11,6 +12,13 @@ const sampleLeagues = [
 export default async function Home() {
   const leagueScorers = await getTopScorersFromLeagues(sampleLeagues, 2022);
   const leagueStandings = await getStandings(sampleLeagues, 2022);
+
+  if (leagueStandings.errorCode === 429 && leagueStandings.waitTime) {
+    return <Pending waitTime={leagueStandings.waitTime} />;
+  }
+  if (leagueScorers.errorCode === 429 && leagueScorers.waitTime) {
+    return <Pending waitTime={leagueScorers.waitTime} />;
+  }
 
   return (
     <section className="flex flex-col gap-8">
