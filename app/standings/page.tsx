@@ -16,8 +16,8 @@ export default async function StandingsPage() {
         national football leagues
       </p>
       <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {leagueStandings.map((league) => {
-          return <StandingCard league={league} />;
+        {leagueStandings.map((league, i) => {
+          return <StandingCard key={"Standing Card " + i} league={league} />;
         })}
       </div>
     </section>

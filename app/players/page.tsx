@@ -75,8 +75,8 @@ export default async function PlayersPage() {
           </table>
           <div className="flex flex-col"></div>
         </ScrollArea>
-        {leagueScorers.map((league) => {
-          return <ScorerCard league={league} />;
+        {leagueScorers.map((league, i) => {
+          return <ScorerCard key={"Scorer Card " + i} league={league} />;
         })}
       </div>
     </section>
