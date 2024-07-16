@@ -1,3 +1,9 @@
+export type Error = {
+  errorCode?: number;
+  message?: string;
+  waitTime?: string;
+};
+
 type Team = {
   name: string;
   shortName: string;

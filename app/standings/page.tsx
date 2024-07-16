@@ -3,11 +3,25 @@ import { nationalLeagues } from "@/lib/constants";
 import { getStandings } from "@/lib/fetch";
 import StandingCard from "@/components/standing-card";
 
+function isError(standing: any): standing is Error {
+  return standing instanceof Error;
+}
+
 export default async function StandingsPage() {
   const leagueStandings = await getStandings(
     Object.entries(nationalLeagues),
     2022,
   );
+
+  if (leagueStandings.errorCode === 429) {
+    return (
+      <div>
+        Processing... please wait {leagueStandings.waitTime} seconds, then
+        refresh the page.
+      </div>
+    );
+  }
+
   return (
     <section>
       <h1 className="text-3xl font-semibold">Standings</h1>
